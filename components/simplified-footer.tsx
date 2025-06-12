@@ -71,7 +71,7 @@ export default function SimplifiedFooter() {
             </p>
             <div className="flex space-x-4">
               <motion.a
-                href="https://instagram.com"
+                href="https://www.instagram.com/back_win_1?igsh=MTZuN2M5bGJ0eHFyeA=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-black/50 p-2 rounded-full text-gray-300 hover:text-neon-red transition-colors duration-300 border border-transparent hover:border-neon-red/50"
@@ -89,7 +89,7 @@ export default function SimplifiedFooter() {
                 <WhatsApp className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/1ALu2DHG8g/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-black/50 p-2 rounded-full text-gray-300 hover:text-neon-red transition-colors duration-300 border border-transparent hover:border-neon-red/50"
@@ -179,16 +179,28 @@ export default function SimplifiedFooter() {
             {/* Simplified newsletter subscription */}
             <div className="mt-6">
               <h4 className="text-white mb-3 font-medium">Subscribe to our newsletter</h4>
-              <div className="flex">
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const email = e.target.email.value;
+                  window.location.href = `mailto:backwinindia@gmail.com?subject=Newsletter Subscription&body=New subscription request from: ${email}`;
+                }}
+                className="flex"
+              >
                 <input
                   type="email"
+                  name="email"
                   placeholder="Your email"
+                  required
                   className="bg-black/50 rounded-l-md px-4 py-2 text-white w-full focus:outline-none focus:ring-1 focus:ring-neon-red border border-gray-800 border-r-0"
                 />
-                <button className="bg-gradient-to-r from-neon-red to-rose-500 hover:from-rose-500 hover:to-neon-red text-white px-4 py-2 rounded-r-md transition-colors duration-300">
+                <button 
+                  type="submit"
+                  className="bg-gradient-to-r from-neon-red to-rose-500 hover:from-rose-500 hover:to-neon-red text-white px-4 py-2 rounded-r-md transition-colors duration-300"
+                >
                   <ArrowRight className="h-4 w-4" />
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>

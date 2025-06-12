@@ -4,9 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Instagram, Twitter, Facebook, Mail, Phone, ArrowRight } from "lucide-react"
+import { FormEvent } from "react"
 
 export default function Footer() {
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
       const offsetTop = element.getBoundingClientRect().top + window.pageYOffset
@@ -33,7 +34,7 @@ export default function Footer() {
   ]
 
   // Function to handle product navigation with specific tab selection
-  const navigateToProduct = (id, param) => {
+  const navigateToProduct = (id: string, param: string) => {
     // First scroll to the products section
     scrollToSection(id)
 
@@ -42,6 +43,15 @@ export default function Footer() {
       const event = new CustomEvent("setActiveTab", { detail: param })
       document.dispatchEvent(event)
     }, 800) // Delay to ensure scroll completes first
+  }
+
+  const handleNewsletterSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+    if (emailInput && emailInput.value) {
+      window.location.href = `mailto:backwinindia@gmail.com?subject=Newsletter Subscription&body=New subscription request from: ${emailInput.value}`;
+    }
   }
 
   return (
@@ -72,7 +82,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <motion.a
-                href="https://instagram.com"
+                href="https://www.instagram.com/back_win_1?igsh=MTZuN2M5bGJ0eHFyeA=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-charcoal-light p-2 rounded-full text-gray-300 hover:text-neon-red transition-colors duration-300 border border-transparent hover:border-neon-red/50"
@@ -90,7 +100,7 @@ export default function Footer() {
                 <Twitter className="h-5 w-5" />
               </motion.a>
               <motion.a
-                href="https://facebook.com"
+                href="https://www.facebook.com/share/1ALu2DHG8g/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-charcoal-light p-2 rounded-full text-gray-300 hover:text-neon-red transition-colors duration-300 border border-transparent hover:border-neon-red/50"
@@ -178,16 +188,24 @@ export default function Footer() {
             </ul>
             <div className="mt-6">
               <h4 className="text-white mb-3 font-medium">Subscribe to our newsletter</h4>
-              <div className="flex gradient-border">
+              <form 
+                onSubmit={handleNewsletterSubmit}
+                className="flex gradient-border"
+              >
                 <input
                   type="email"
+                  name="email"
                   placeholder="Your email"
+                  required
                   className="bg-black/50 rounded-l-md px-4 py-2 text-white w-full focus:outline-none"
                 />
-                <button className="bg-neon-red hover:bg-neon-red/80 text-white px-4 py-2 rounded-r-md">
+                <button 
+                  type="submit"
+                  className="bg-neon-red hover:bg-neon-red/80 text-white px-4 py-2 rounded-r-md"
+                >
                   <ArrowRight className="h-4 w-4" />
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
